@@ -1,13 +1,14 @@
-// src/App.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+
+const API_BASE_URL = 'http://localhost:3001';
 
 function App() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // Fetch data from your JSON Server
-    axios.get('https://vinojvinojen.github.io/sample1/')
+    // Fetch data from the JSON server
+    axios.get(`${API_BASE_URL}/posts`)
       .then((response) => {
         setPosts(response.data);
       })
@@ -18,10 +19,10 @@ function App() {
 
   return (
     <div className="App">
-      <h1>JSON Server Example</h1>
+      <h1>Posts</h1>
       <ul>
         {posts.map((post) => (
-          <li key={post.MACAddress}>{post.IpAddress}</li>
+          <li key={post.id}>{post.title}</li>
         ))}
       </ul>
     </div>
