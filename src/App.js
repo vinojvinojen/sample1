@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from your JSON Server
+    axios.get('http://localhost:5000/APIGateways')
+      .then((response) => {
+        setPosts(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>JSON Server Example</h1>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.MACAddress}>{post.IpAddress}</li>
+        ))}
+      </ul>
     </div>
   );
 }
