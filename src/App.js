@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     // Fetch data from your JSON Server
-    axios.get('http://localhost:5000/APIGateways')
+    axios.get('https://vinojvinojen.github.io/sample1/')
       .then((response) => {
         setPosts(response.data);
       })
