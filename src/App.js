@@ -1,20 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = 'https://testapi-wpwh.onrender.com/APIGateways';
 
 function App() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // Fetch data from the JSON server
-    axios.get(`${API_BASE_URL}/posts`)
-      .then((response) => {
-        setPosts(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
+    // Retrieve the existing gateway data from local storage
+    // readApiConfig()
+    // reloadData()
+    const readApiConfig = async () => {
+      try {
+        // Make an Axios GET request to retrieve the data
+        const response = await axios.get(API_BASE_URL);
+        // const response=await ReadApiConfig(token)
+        // setAPIGateways(response.data[0].APIGateways); // Access APIGateways within the response structure
+        // setLocks(locks);
+        setPosts(response.data); // Access APIGateways within the response structure
+
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error reading API config:", error);
+      }
+    };
+
+    // Call the readApiConfig function to retrieve API gateways
+    readApiConfig();
   }, []);
 
   return (
@@ -22,7 +34,7 @@ function App() {
       <h1>Posts</h1>
       <ul>
         {posts.map((post) => (
-          <li key={post.id}>{post.title}</li>
+          <li key={post.MACAddress}>{post.IpAddress}</li>
         ))}
       </ul>
     </div>
